@@ -2,11 +2,35 @@
 
 fx-991CN X / fx-991CN CW 的固件、反编译工程、ROP 开发资料与配套资源。
 
+> **本仓库是归档镜像，不是原项目。**
+> 原始材料来自 **[Physics365/991CN-X-CW-Decompilation](https://github.com/Physics365/991CN-X-CW-Decompilation)** 及其 LFS 镜像仓库，以 **GPL-3.0** 分发。
+> 本镜像的内容经过 **ShakerPlace3912 与 AI 协作再整理**：补充了完整性校验表（逐文件 SHA-256）、上游 LFS 指针失效后的资源回补记录、VerF 版本支持说明与示例、"已知问题 / 待办"清单，并核对了文档与实际文件的差异。
+> **固件（`ROM/*/rom.bin`）版权归卡西欧（CASIO Computer Co., Ltd.）所有**，此处仅为逆向研究用途留存，请勿用于商业分发。
+
 ## 来源与许可
 
 - 主体内容来自 **<https://github.com/Physics365/991CN-X-CW-Decompilation>**，以 **GPL-3.0** 分发（见 [LICENSE](LICENSE)）。
+- 本次归档由 **ShakerPlace3912** 主导、AI 协助完成整理与校验，公开镜像见 <https://github.com/sharkbee2934/991CN-X-CW-Decompilation>。
 - Ghidra 处理器模块 `反编译相关/nxu8` 出自 **[EwTE_H](https://tieba.baidu.com/home/main?id=tb.1.ba0c2f47.avRm7aRqck4QgwYYgIf3eA) 的 [nX-U8_for_Ghidra](https://github.com/EwTE-H/nX-U8_for_Ghidra)**，已逐文件与上游 sha256 核对。
 - 字体、字符表、真机 ROM、教程文档取自该项目的 LFS 镜像仓库 **`991CN-X-CW-Decompilation_Files`**（源仓库的 Git LFS 已关闭，`.zip` 等指针无法解析，故这类资源一律取自镜像仓库的直存文件）。
+
+## 本文档的整理说明
+
+上游仓库的部分文档与实际文件存在出入，本次整理据实核对后修正，供后续使用者参考：
+
+| 项目 | 上游文档说法 | 实际情况 |
+| --- | --- | --- |
+| GBK 编码文件 | 「README.md 与 贪吃蛇/README.md 两处为 GBK」 | 仅 `ROP/复杂ROP程序/README.md` 为 GBK，`贪吃蛇/README.md` 已是 UTF-8 |
+| `buildLanguage.xml` 字节数 | 1662 | 1667 |
+| `__pycache__` | 未提及 | 为 cpython-314 字节码，与本地 Python 3.12 不兼容，已加入 `.gitignore` |
+
+此外，仓库内共发现 5 组完全重复的文件（SHA-256 相同），保留未删以免破坏上游目录结构：
+
+- `字体/显示字体/991CN X/README.pdf` 与 `字体/显示字体/991CN CW/README.pdf`
+- `字体/显示字体/991CN X/README-math.pdf` 与 `字体/显示字体/991CN CW/README-math.pdf`
+- `教程文档/教程前三章.pdf` 与 `ROP/教程/教程前三章(unfin).pdf`
+- `ROM/fx991cnx-vC/model.lua` 与 `ROM/fx991cnx-vF/model.lua`
+- `ROM/fx991cnx-vC/interface.png` 与 `ROM/fx991cnx-vF/interface.png`
 
 ## 目录
 
