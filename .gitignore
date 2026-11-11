@@ -1,0 +1,11 @@
+# Python 字节码（cpython-314，与本地 3.12 不兼容）
+__pycache__/
+*.pyc
+
+# Git LFS 来源说明（保留在归档里也无害，如需忽略可删除本行）
+# *.origin-lfs-pointer.txt
+
+# 系统杂项
+.DS_Store
+Thumbs.db
+desktop.ini

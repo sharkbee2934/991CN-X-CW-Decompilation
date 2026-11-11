@@ -1,0 +1,161 @@
+; ============================================================
+; sym_vF.txt —— fx-991CN X VerF 固件的地址表
+; 由 port_sym.py 从 vC 的 sym.txt 移植：按反汇编指纹（遮蔽地址与立即数）
+; 在 vF 的反汇编里找最长公共前缀，99 项全部唯一命中。
+; 用法: python .\asm.py <file.asm> -sym .\sym_vF.txt
+; 说明与校验见 VerF.md
+; ============================================================
+; content here is used for assembler to work
+; MODIFY CAREFULLY!
+
+0875C       memcpy
+0902A       memset
+203C8       smart_strcpy
+203D6       smart_strcat
+@203B8       smart_strlen 
+2236E       line_print
+221BE       smallprint
+2210A       line_print_col0
+;FE 08 km->mile
+22114       line_print_Col3
+@221B8       printline 
+08CC6       printmultiline
+
+2241C        hex_byte
+
+@08764       render_e3d4
+@08770       render_ddd4
+@08770       flush_screen
+
+@09024       memzero
+
+@1FA14       reset_routine
+
+29EE8       get_string_constant
+@07F18       fill_screen
+221D0       waitkey
+@0F7CA       read_key
+;convert read_phy_key result (er0) to key code
+252E6       key_cvt  
+
+119B6       setlr_cmp
+
+@091D6       delay
+0946A       _start
+24E40       main
+
+@0874C       buf1_to_buf2
+
+@26354       byte_strlen
+
+@22042       diagnostic_mode
+@220AA       diagnostic
+
+
+@2A1D4       line_print__call__
+
+@08358       char_print_1byte
+@08362       char_print
+
+08544       char_get_14
+
+08624       char_get_l14
+09406       zero_KO
+
+07F6C       buffer_clear
+
+08544		char_get_14      
+090CC       assign_var
+; er0: char, er2: output adr
+07F1A       screencls
+;dbd0       有意思
+;           0f 0e d9 0c 0b 0a 09 08 07 06
+[GADGETS]
+0B61E       cmp_gt
+13AD8       load_table
+0911C       mov er0,sp 
+26446       mov r1,0
+09DB8       sub r0,r8,pop er8
+08F8C       er2+=er10,r0=0,[er8]+=er2,pop xr8
+09244       setlr
+08F92       er2+=er10,st er2,[er8],pop xr8
+08F8E       r0=0,[er8]+=er2,pop xr8
+203D2	    st r2,[er0]
+18BCE       *er0=r2,r0=0
+130E2       pop QR0
+121A8       pop er0
+0902E       pop er2
+16134       pop xr0
+26A4E       pop xr8
+187D6       pop er4
+0D0F0       pop er8
+08FB0       pop qr8
+18FE6       pop er12
+20D72       pop ER14
+14C58       pop xr4,pop qr8
+20D70       jpop er14
+12D34       jpop qr8
+2238E       jpop qr80
+2332E       mov r0,r11,jpop xr4,qr8
+222B8       nop
+09D8E       ENTER
+13CD0       LEAVE
+0911C       store_sp_er0
+;084F8   EA magic instr :)
+13ADC       l er0,[er2]
+13916       st er2,[er0]
+13AA8       L er8,[er0]
+10E52       l r0,[er14]
+1810E       l r0,[er0]
+15EE4       mov r2,r0,pop er0
+0ECF0       mov er0,1
+09A86       mov er2,1
+1DA72       mov r0,0
+18812       mov r0,0,pop er2
+; ^^ rt DA-->OPTN 角度单位 r
+1FC62       mov er0,er2
+14B14       mov er2,er0
+1E7DC       mov er0,er4,pop er4
+187E2       add er0,er2
+;14f0c
+12312       or r0,r1
+1B87A       sll r0,4
+;
+263DE       cif
+13ABE       add er4,er0
+17B46       lea [er12]
+203D2       st r2,[er0]
+1C82C       st r2,[ea+]
+204E6       st r2,[ea+], pop xr4, pop qr8
+1D806       and r0,15
+20838       and r0,15
+;19940       and r1,15
+1A45E       and r1,15
+20840       and r1, 15, sll r0, 4, or r1, r0
+187E2       add er0,er2
+179BC       mov er14,er0,pop xr0
+08F94       st er2,[er8],pop xr8
+;13aa6  add er0 er2
+;14f0c  ~
+;187e2  ~
+;2abf8  ~
+;8eee   ~
+;d112 c4 --> complex mode
+;d11e --> math i/o
+;15ee4
+;f2de mov r2,r1
+
+;16d7c好函数，两两byte or运算
+;   r10 byte个数 er12 目标地址 ea 起始地址
+; ============================================================
+; 以下来自「北冥表」（VerF 实测地址表，见 北冥表.md），
+; 补上 vC 的 sym.txt 里没有对应条目的 pop 链 gadget。
+; ============================================================
+16338       pop er6
+0C29C       pop er10
+16D78       pop xr4
+1D52C       pop xr12
+12640       pop r0
+122EC       pop r1
+15E60       pop r4
+10E76       pop ea
